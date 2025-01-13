@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const { DB_CONNECTION_URL } = require('./env/env')
 const app = express();
 const path = require('path')
+const puppeteer = require('puppeteer'); // Import Puppeteer
+
 
 const CreateServices = require("./Routes/AdminRoutes/CreateService")
 const CompanyData = require("./Routes/AdminRoutes/Company")
@@ -50,6 +52,42 @@ app.use('/EmailImgs', express.static(path.join(__dirname, '/EmailImgs')));
 mongoose.connect(DB_CONNECTION_URL) 
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
+
+  // Puppeteer Task Example (Executed on Server Start)
+const runPuppeteerTask = async () => {
+    try {
+      console.log("Launching Puppeteer..."); 
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto('https://pest-demo-backend.onrender.com'); // Replace with your target URL
+      const title = await page.title();
+      console.log(`Page title: ${title}`);
+      await browser.close();
+      console.log("Puppeteer task completed!");
+    } catch (error) {
+      console.error("Error with Puppeteer:", error);
+    }
+  };
+  
+  // Call Puppeteer Task (Optional: Remove if not needed on startup)
+  runPuppeteerTask();
+  
+  // Puppeteer API Endpoint
+  app.get('/puppeteer-task', async (req, res) => {
+    try {
+      console.log("Running Puppeteer task...");
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto('https://pest-demo-backend.onrender.com'); // Replace with your target URL
+      const title = await page.title();
+      await browser.close();
+      res.json({ success: true, title });
+    } catch (error) {
+      console.error("Error with Puppeteer:", error);
+      res.status(500).json({ success: false, error: error.message });
+    }   
+  });
+  
 
 
 const PORT = process.env.PORT || 4000
