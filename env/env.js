@@ -5,7 +5,7 @@ const env = {
         
     // DB_CONNECTION_URL: 'mongodb+srv://dlk:dlkTechnologies@cluster0.9zo8ck5.mongodb.net/Pest_clone?retryWrites=true&w=majority&appName=Cluster0'
     // DB_CONNECTION_URL:'mongodb+srv://user1:vijayaraj@cluster0.7nua9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-    DB_CONNECTION_URL:'mongodb+srv://user1:vijay@cluster0.7nua9.mongodb.net/test'
+    DB_CONNECTION_URL:'mongodb+srv://user1:vijay@cluster0.7nua9.mongodb.net/test?retryWrites=true&w=majority'
 } 
 module.exports = env;    
   

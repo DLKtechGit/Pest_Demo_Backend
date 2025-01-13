@@ -45,9 +45,9 @@ app.use('/issuesApi',Issues)
 
 app.use('/EmailImgs', express.static(path.join(__dirname, '/EmailImgs')));
 
-const uri = 'mongodb+srv://user1:vijay@cluster0.7nua9.mongodb.net/test?retryWrites=true&w=majority';
+// const uri = '';
   
-mongoose.connect(uri) 
+mongoose.connect(DB_CONNECTION_URL) 
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
